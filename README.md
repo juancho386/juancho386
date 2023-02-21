@@ -15,7 +15,7 @@ I have been working on the industry since 1997, in different areas and countries
 | Devops Skills ||
 | --- | --- |
 | Server scripting (Bash) | :green_square: :green_square: :green_square: :green_square: :green_square: |
-| CI/CD (Jenkins) | :green_square: :green_square: :green_square: :green_square: :white_large_square: |
+| CI/CD (Github Actions / Jenkins) | :green_square: :green_square: :green_square: :green_square: :white_large_square: |
 | Serverless | :green_square: :green_square: :green_square: :green_square: :white_large_square: |
 | Cloud computing (AWS) | :green_square: :green_square: :green_square: :white_large_square: :white_large_square: |
 | Web servers (Apache) | :green_square: :green_square: :green_square: :green_square: :white_large_square: |
