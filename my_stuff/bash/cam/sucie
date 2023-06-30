@@ -1,0 +1,5 @@
+#hello my name is sucie
+ff -f v4l2 -i /dev/video0 -pix_fmt yuv420p -filter_complex "[0:v]crop=100:40:iw/2-50:100,scale=iw*2:ih*2 [pip]; [0][pip] overlay=main_w/2-overlay_w/2:90" -f v4l2 /dev/video1
+
+#sucie dos canales
+ff -f v4l2 -i /dev/video0 -pix_fmt yuv420p -filter_complex "[0:v]crop=30:30:iw/2-30:100,scale=iw*2.5:ih*2.5 [o1];[0:v]crop=30:30:iw/2+30:100,scale=iw*2.5:ih*2.5 [o2]; [0][o1] overlay=main_w/2-overlay_w/2-20:90 [tmp];[tmp][o2] overlay=main_w/2-overlay_w/2+50:90" -f v4l2 /dev/video1

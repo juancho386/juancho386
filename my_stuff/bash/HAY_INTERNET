@@ -1,0 +1,18 @@
+#!/bin/bash
+prevRes=0
+while true;do
+	sleep 3s
+	ping -c 1 8.8.8.8
+	if [ $? -gt 0 ];then
+		[[ $prevRes -eq 0 ]] && echo "$(date +%Y-%m-%d_%H_%M_%S) NO HAY">>~/bin/HAY_INTERNET.log
+		espeak -k10 -v es-la -p 10 "No hay internet"
+		prevRes=1
+	else
+		if [ $prevRes -eq 1 ]; then
+			echo "$(date +%Y-%m-%d_%H_%M_%S) VOLVIO">>~/bin/HAY_INTERNET.log
+			espeak -k10 -v es-la -p 10 "Ya volvió"
+			prevRes=0
+		fi
+	fi
+done
+

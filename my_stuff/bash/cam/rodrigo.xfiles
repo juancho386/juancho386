@@ -1,0 +1,1 @@
+ff -i /home/case/Pictures/tera/xfiles.png -f v4l2 -i /dev/video0 -pix_fmt yuv420p -filter_complex '[0:v]colorkey=0xff00fc:0.2:[img];[1:v]scale=320:240[s];[1:v][s]overlay=100:100[o];[o][img]overlay[out]' -map '[out]' -f v4l2 /dev/video1

@@ -1,0 +1,5 @@
+esto es una prueba
+para ver si toma
+un archivo de texto
+como entrada del binario
+

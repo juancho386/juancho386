@@ -1,0 +1,4 @@
+# chroma key
+ff -i /home/case/Downloads/damy.png -f v4l2 -i /dev/video0 -pix_fmt yuv420p -filter_complex '[0:v]colorkey=0xff0000:0.1:[ckout];[1:v][ckout]overlay[out]' -map '[out]' -f v4l2 /dev/video1
+
+

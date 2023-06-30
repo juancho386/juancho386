@@ -1,0 +1,2 @@
+ff -f v4l2 -i /dev/video0 -i ~/Pictures/tera/bsb2.png -pix_fmt yuv420p -filter_complex '[1]colorkey=0xff00fc:0.2[i];[0]scale=200:-1[cam];[0][cam]overlay=130:0[o];[o][i]overlay[out]' -map '[out]' -f v4l2 /dev/video1
+

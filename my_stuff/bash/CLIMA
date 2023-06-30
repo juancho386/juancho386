@@ -1,0 +1,2 @@
+#!/bin/bash
+wget -qO - wttr.in/Prague | sed "1,2d;17,36d;39,40d"

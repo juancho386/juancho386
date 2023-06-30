@@ -1,0 +1,4 @@
+#modprobe para crear cam
+modprobe v4l2loopback exclusive_caps=1 card_label="Virtual Webcam" max_buffers=2
+
+

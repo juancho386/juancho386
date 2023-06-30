@@ -1,0 +1,21 @@
+#!/bin/bash
+w=$(tput cols)
+while true;do 
+	sleep 3s;
+	q=$(ping -c 1 8.8.8.8 2>&1)
+	if [[ $? == 0 ]]; then 
+		q=$(echo -n "$q"|sed -E "1d;3,6d;s/^.*time=//;s/([0-9]+).*$/\1/")
+		echo -n ${q};
+		if [[ $q -ge $w ]]; then
+			q=$((w - ${#q} -1 ))
+			echo -en "\033[31;2m"
+		fi
+		for a in $(seq $q);do 
+			echo -n =
+		done
+		echo -e "\033[0m";
+	else
+		echo "ping error"
+	fi
+done
+

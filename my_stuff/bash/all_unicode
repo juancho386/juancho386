@@ -1,0 +1,11 @@
+#!/bin/bash
+for a in {0..9} {A..F}; do 
+	for b in {0..9} {A..F}; do 
+		for c in {0..9} {A..F}; do 
+			for d in {0..9} {A..F}; do 
+				echo -e "${a}${b}${c}${d} \U${a}${b}${c}${d}"; 
+			done;
+		done;
+	done; 
+done
+

@@ -1,0 +1,7 @@
+#stream
+ip=$(ifconfig | grep -oE "192.168.0.([^ ]{1,3})" | head -1)
+vlc -vvv peli.copada.mp4 --sout "#rtp{sdp=rtsp://${ip}:8080/stream}" 
+
+
+#leer stream
+vlc rtsp://192.168.0.153:8080/stream

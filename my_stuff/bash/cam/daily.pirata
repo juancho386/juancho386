@@ -1,0 +1,5 @@
+#daily pirata
+
+ff -i /home/case/Pictures/tera/pirata.ff00fc.png -f v4l2 -i /dev/video0 -pix_fmt yuv420p -filter_complex '[0:v]colorkey=0xff00fc:0.2:[ckout];[1:v][ckout]overlay[out]' -map '[out]' -f v4l2 /dev/video1
+
+
