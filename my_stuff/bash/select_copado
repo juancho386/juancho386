@@ -1,0 +1,6 @@
+#!/bin/bash
+s=("The A Team" "Knight Rider" "Airwolf")
+PS3="Which is your favourite?: "
+oIFS=$IFS; IFS=$'\n';select v in ${s[@]};do if [[ "$v" != "" ]]; then break; fi; done; IFS=$oIFS
+echo $v
+
