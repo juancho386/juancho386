@@ -1,0 +1,23 @@
+LANG=utf-8
+Easter=Pascua
+/* locale=es_AR */
+/* #include <calendar.argentina> */
+#include <calendar.birthday>
+/* #include <calendar.holiday> */
+/* #include <calendar.lotr> */
+/* #include <calendar.music> */
+/* #include <calendar.ubuntu> */
+/* #include <calendar.all> */
+#include <calendar.christian>
+#include <calendar.computer>
+/* #include <calendar.debian> */
+/* #include <calendar.discordian> */
+/* #include <calendar.eu> */
+#include <calendar.history>
+
+
+#include <personal>
+#include <argentina>
+#include <peronistas>
+
+
