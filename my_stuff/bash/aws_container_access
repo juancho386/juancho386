@@ -1,0 +1,13 @@
+#!/bin/bash
+if [[ "$1" == "" ]]; then
+	echo "Error: Region not found"
+	echo "Usage:   aws_container_access <region>"
+	echo "example: aws_container_access eu-central-1"
+	exit 1
+fi
+
+select cluster in $(aws ecs list-clusters --region $1 --query "clusterArns" --output json | jq -Mr ".[]" | sed -r "s/^.*\///"); do break; done
+select task in $(aws ecs list-tasks --region $1 --cluster $cluster --query "taskArns[]" --output json | jq -Mr ".[]" | sed "s/^.*\///g"); do break; done
+select command in "/bin/sh" "/bin/bash"; do break; done
+aws ecs execute-command --region $1 --cluster $cluster --task $task --command "$command" --interactive
+
