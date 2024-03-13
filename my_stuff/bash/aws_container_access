@@ -1,13 +1,26 @@
 #!/bin/bash
-if [[ "$1" == "" ]]; then
-	echo "Error: Region not found"
-	echo "Usage:   aws_container_access <region>"
-	echo "example: aws_container_access eu-central-1"
-	exit 1
-fi
+region=$(dialog --stdout --menu "AWS Region" 20 70 18 \
+	eu-west-1 Irlanda eu-central-1 Frankfurt eu-west-2 Londres eu-south-1 Milan eu-west-3 Paris eu-north-1 Estocolmo \
+	us-east-1 Virginia us-east-2 Ohio us-west-1 California us-west-2 Oregon
+)
 
-select cluster in $(aws ecs list-clusters --region $1 --query "clusterArns" --output json | jq -Mr ".[]" | sed -r "s/^.*\///"); do break; done
-select task in $(aws ecs list-tasks --region $1 --cluster $cluster --query "taskArns[]" --output json | jq -Mr ".[]" | sed "s/^.*\///g"); do break; done
-select command in "/bin/sh" "/bin/bash"; do break; done
-aws ecs execute-command --region $1 --cluster $cluster --task $task --command "$command" --interactive
+cluster=$(dialog --no-items --stdout --menu "Cluster" 12 30 18 \
+	$(aws ecs list-clusters --region $region --query "clusterArns" --output json | jq -Mr ".[]" | sed -r "s/^.*\///") \
+)
+
+task=$(dialog --no-items --stdout --menu "Task" 20 40 18 \
+	$(aws ecs list-tasks --region $region --cluster $cluster --query "taskArns[]" --output json | jq -Mr ".[]" | sed "s/^.*\///g") \
+)
+
+cmd=$(dialog --no-items --stdout --menu "Command" 10 10 9 "/bin/bash" "/bin/sh" )
+
+#select continent in eu us; do echo;break; done
+#select area in east west central; do echo;break; done
+#select sub in 1 2 3; do echo;break; done
+#region=${continent}-${area}-${sub}
+#select cluster in $(aws ecs list-clusters --region $region --query "clusterArns" --output json | jq -Mr ".[]" | sed -r "s/^.*\///"); do break; done
+#select task in $(aws ecs list-tasks --region $region --cluster $cluster --query "taskArns[]" --output json | jq -Mr ".[]" | sed "s/^.*\///g"); do break; done
+#select cmd in "/bin/sh" "/bin/bash"; do break; done
+
+aws ecs execute-command --region $region --cluster $cluster --task $task --command "$cmd" --interactive
 
