@@ -8,7 +8,7 @@ if [[ "$1" == "help" ]]; then
 	echo options: direct, simple or default
 	echo "no help ATM. Read the source code for now"
 	exit 0
-elif [[ "$1"=="direct" ]]; then
+elif [[ "$1" == "direct" ]]; then
 	if [[ "$4" == "" ]]; then
 		echo 'required: direct <region> <cluster> <bash|sh>'
 		exit 1
@@ -17,7 +17,7 @@ elif [[ "$1"=="direct" ]]; then
 	cluster="$3"
 	cmd="/bin/${4}"
 	select task in $(aws ecs list-tasks --region $region --cluster $cluster --query "taskArns[]" --output json | jq -Mr ".[]" | sed "s/^.*\///g"); do break; done
-elif [[ "$1"=="simple" ]]; then
+elif [[ "$1" == "simple" ]]; then
 	#select continent in eu us; do echo;break; done
 	#select area in east west central; do echo;break; done
 	#select sub in 1 2 3; do echo;break; done
