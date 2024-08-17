@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 URL=${1:-google.com}
 PORT=${2:-80}
 
@@ -8,7 +8,7 @@ trap "echo Closing socket;exec 3>&-" EXIT
 lines=(
 	'GET /robots.txt HTTP/1.1'
 	"Host: ${URL}"
-	"Conenction: close"
+	"Connection: close"
 	''
 )
 printf '%s\r\n' "${lines[@]}" >&3
