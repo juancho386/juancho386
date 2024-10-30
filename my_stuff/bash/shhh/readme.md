@@ -1,5 +1,6 @@
 # SHHH
-Simple shell (bash) script to encrypt and decrypt messages based on public and private RSA keys 
+Simple sHell-based (bash) tool to encrypt and Hashed messages based on public and private RSA keys.
+
 ## Features
 - It uses Bash so it runs in any (?) linux machine
 - ./basic.shh.sh has a menu. Use it
@@ -18,7 +19,7 @@ At the first stage, you can create your keys, share your public key with your fr
 ##### Lvl 2 (current)
 The keys can be up to 16kb long to receive messages of up to 2kb long
 ##### lvl 3
-The model will be migrated to an hibrid model so the messages can be of any length
+The model will be migrated to an hibrid model so the messages can be of any length. There it'd be the 3rd "h"
 ##### lbl 4
 Make it prettier using dialog. But in my current distribution, dialog has a bug on --editbox that doesn't allow text bigger than about 2k long
 
