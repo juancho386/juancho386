@@ -2,9 +2,10 @@
 BACKTITLE="SHHH! 🤫"
 #screen=$(dialog --print-maxsize 2>&1 1>/dev/null) # It can not get the screen size from inside the subshell
 
-dialog --print-maxsize >dummy 2>&1 # for some strange reason it returns a standard 80x24 instead of the real size
-WIDTH=$(grep -Eo "[0-9]{1,}$" <dummy ) # I'd use it anyway... just because it can not break anything
+dialog --print-maxsize 2>dummy
+WIDTH=$(grep -Eo "[0-9]{1,}$" <dummy )
 HEIGHT=$( grep -Eo ": [0-9]*" <dummy | cut -d\  -f2)
+WIDTH=$((WIDTH-7))
 HEIGHT=$((HEIGHT-4))
 iHEIGHT=$((HEIGHT-4))
 
