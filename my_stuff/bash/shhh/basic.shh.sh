@@ -89,7 +89,7 @@ config () {
 		fi
 		if [[ "${ans^^}" == "Y" || ! -f shhh.private.pem ]]; then
 			echo Creating private key
-			openssl genpkey -algorithm RSA -out shhh.private.pem -aes256 # -pkeyopt rsa_keygen_bits:16386 # XXX
+			openssl genpkey -algorithm RSA -out shhh.private.pem -aes256 -pkeyopt rsa_keygen_bits:16386
 			echo Creating public key
 			openssl rsa -in shhh.private.pem -pubout -out ./contacts/myself.pem
 		fi
