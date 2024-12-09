@@ -77,7 +77,7 @@ nnoremap <leader>W :call EncryptFile()<CR>
 nnoremap <leader>O :call DecryptFile()<CR>
 nnoremap <leader>gd :call GitDiffSplit()<CR>
 
-
+nnoremap <leader><tab> :%s/    /\t/g<CR>
 
 set tabstop=4
 set shiftwidth=4
