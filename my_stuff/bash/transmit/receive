@@ -1,0 +1,6 @@
+#!/bin/bash
+echo -n "My IP is: "
+ifconfig | grep -oE "inet [0-9.]{7,15}" | grep -v "127.0.0.1" | cut -b6-
+echo "listening on 4444"
+nc -l 4444 | tar -xvz
+

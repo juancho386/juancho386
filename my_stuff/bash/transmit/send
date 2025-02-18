@@ -1,0 +1,5 @@
+#!/bin/bash
+read -p "Destination IP: " IP
+select dir in $(find -maxdepth 1 -type d); do break; done
+tar -cvz "$dir" | nc -N $IP 4444
+
