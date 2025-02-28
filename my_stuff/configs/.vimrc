@@ -3,6 +3,8 @@
 " el mapleader defult es \
 
 autocmd BufWritePost *.tf silent! !terraform fmt %
+autocmd BufWritePost *.tf e!
+autocmd BufWritePost *.tf redraw!
 
 " Configuración de colores para Diff
 highlight DiffAdd ctermfg=Green ctermbg=DarkGreen guifg=#00ff00 guibg=DarkGreen
@@ -83,7 +85,7 @@ nnoremap <leader><tab> :%s/    /\t/g<CR>
 set tabstop=4
 set shiftwidth=4
 set softtabstop=0
-set autoindent number relativenumber paste splitbelow splitright
+set autowrite autoindent number relativenumber paste splitbelow splitright
 set listchars=tab:»·,space:·,eol:$,trail:≈,extends:⌐,precedes:¬
 
 nnoremap _b oBest regards,<Esc>oJuan Nestares<Esc>
