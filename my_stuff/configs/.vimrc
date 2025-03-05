@@ -2,6 +2,8 @@
 " let mapleader = ","
 " el mapleader defult es \
 
+autocmd BufWritePost * :%s/\s\+$//e
+
 autocmd BufWritePost *.tf silent! !terraform fmt %
 autocmd BufWritePost *.tf e!
 autocmd BufWritePost *.tf redraw!
