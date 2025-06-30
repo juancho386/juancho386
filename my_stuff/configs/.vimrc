@@ -2,15 +2,33 @@
 " let mapleader = ","
 " el mapleader defult es \
 
+"borra trailspaces
 autocmd BufWritePost * :%s/\s\+$//e
 
-autocmd BufWritePost *.tf silent! !terraform fmt %
-autocmd BufWritePost *.tf e!
-autocmd BufWritePost *.tf redraw!
-augroup EnsureNewlineOnSave
-  autocmd!
-  autocmd BufWritePre * if getline('$') !=# '' | call setline(line('$')+1, '') | endif
-augroup END
+autocmd BufWritePost *.tf,*.tfvars silent! !terraform fmt %
+" autocmd BufWritePost *.tf,*.tfvars silent! execute '!terraform fmt % || echoerr "Error: terraform fmt falló en " . expand("%")'
+autocmd BufWritePost *.tf,*.tfvars e!
+autocmd BufWritePost *.tf,*.tfvars redraw!
+
+" ultimo caracter, que sea un ENTER
+autocmd BufWritePre * call EnsureSingleNewlineAtEOF()
+
+function! EnsureSingleNewlineAtEOF()
+    let lastline = line('$')
+
+    " Eliminar TODAS las líneas vacías al final, dejando al menos una línea con contenido
+    while lastline > 1 && getline(lastline) ==# ''
+        execute lastline 'delete _'
+        let lastline -= 1
+    endwhile
+
+    " Si la última línea está vacía, significa que ya tiene un \n correcto
+    " Si no, agregamos una línea en blanco sin modificar la actual
+    if getline('$') !=# ''
+        call append('$', '')  " Agregar una línea vacía al final
+    endif
+endfunction
+
 
 " Configuración de colores para Diff
 highlight DiffAdd ctermfg=Green ctermbg=DarkGreen guifg=#00ff00 guibg=DarkGreen
@@ -24,7 +42,7 @@ function! EncryptFile()
 	if filename == ""
 		echo "No se proporcionó un nombre de archivo"
 		return
-	endif 
+	endif
 	let tmpfile = tempname()
 	execute 'write! ' . tmpfile
 	execute 'silent !openssl enc -e -aes-256-cbc -pbkdf2 -in ' . tmpfile . ' -out ' . filename . '.aes256cbc'
@@ -38,7 +56,7 @@ function! DecryptFile()
 	if filename == ""
 		echo "No se proporcionó un nombre de archivo"
 		return
-	endif 
+	endif
 	let tmpfile = tempname()
 	execute 'silent !openssl enc -d -aes-256-cbc -pbkdf2 -in ' . filename . ' -out ' . tmpfile
 	"if todo bien: echo Archivo desencriptado and ...
@@ -97,8 +115,4 @@ set listchars=tab:»·,space:·,eol:$,trail:≈,extends:⌐,precedes:¬
 nnoremap _b oBest regards,<Esc>oJuan Nestares<Esc>
 nnoremap _e oEzekiel 25:17. "The path of the righteous man is beset on all sides by the inequities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of the darkness. For he is truly his brother's keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who attempt to poison and destroy my brothers. And you will know I am the Lord when I lay my vengeance upon you."
 nnoremap _s oVerdammte Scheiße!
-
-
-
-
 
