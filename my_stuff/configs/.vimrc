@@ -3,6 +3,14 @@
 " el mapleader defult es \
 
 "borra trailspaces
+
+augroup SaveCursor
+  autocmd!
+  autocmd BufWritePre * let b:cursorpos = getpos(".")
+  autocmd BufWritePost * if exists("b:cursorpos") | call setpos(".", b:cursorpos) | unlet b:cursorpos | endif
+augroup END
+
+
 autocmd BufWritePost * :%s/\s\+$//e
 
 autocmd BufWritePost *.tf,*.tfvars silent! !terraform fmt %
@@ -88,15 +96,16 @@ nnoremap <leader>n :set number!<cr>
 nnoremap <leader>r :set relativenumber!<cr>
 nnoremap <leader>l :set list!<cr>
 nnoremap <leader>a :set ai!<cr>
+nnoremap <leader>w :set wrap!<cr>
 
 " Split
 nnoremap <leader>- :split<cr>
-nnoremap <leader>\ :vertical split<cr>
+nnoremap <leader>\| :vertical split<cr>
 nnoremap <leader><UP> :resize +3<cr>
 nnoremap <leader><DOWN> :resize -3<cr>
 nnoremap <leader><left> :vertical resize -3<cr>
 nnoremap <leader><right> :vertical resize +3<cr>
-nnoremap <leader>\| :vertical diffsplit
+nnoremap <leader>\ :vertical diffsplit
 nnoremap <leader>> <C-w>h:diffput<cr>
 nnoremap <leader>< <C-w>l:diffput<cr>
 
