@@ -10,7 +10,6 @@ augroup SaveCursor
   autocmd BufWritePost * if exists("b:cursorpos") | call setpos(".", b:cursorpos) | unlet b:cursorpos | endif
 augroup END
 
-
 autocmd BufWritePost * :%s/\s\+$//e
 
 autocmd BufWritePost *.tf,*.tfvars silent! !terraform fmt %
@@ -92,7 +91,7 @@ endfunction
 
 
 nnoremap <leader>h :execute 'map <leader>'<cr>
-nnoremap <leader>n :set number!<cr>
+nnoremap <leader>n :set number! relativenumber!<cr>
 nnoremap <leader>r :set relativenumber!<cr>
 nnoremap <leader>l :set list!<cr>
 nnoremap <leader>a :set ai!<cr>
