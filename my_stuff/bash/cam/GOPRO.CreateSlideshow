@@ -1,22 +1,25 @@
 #!/bin/bash
 
-trap "rm filters.txt" EXIT
+trap "rm list.txt names.srt" EXIT
+
+for f in $(find . -iname "*.jpg" -type f | sort); do
+  echo "file '$f'"
+  echo "duration 3"
+done > list.txt
 
 i=0
-for f in $(find . -maxdepth 1 -type f -iname '*.jpg' | sort); do
-  echo "[$i:v]drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='${f##*/}':x=20:y=20:fontsize=124:fontcolor=white:box=1:boxcolor=black@0.5[v$i];"
+for f in $(find . -iname "*.jpg" -type f | sort); do
+  start=$((i*3))
+  end=$((start+3))
+  printf "%d\n%02d:%02d:%02d,000 --> %02d:%02d:%02d,000\n%s\n\n" \
+    $((i+1)) \
+    $((start/3600)) $(((start/60)%60)) $((start%60)) \
+    $((end/3600))   $(((end/60)%60))   $((end%60)) \
+    "$f"
   i=$((i+1))
-done > filters.txt
+done > names.srt
 
-
-ffmpeg -y $(find . -maxdepth 1 -type f -iname '*.jpg' | sort | sed 's/^/ -loop 1 -t 3 -i /') \
-	-filter_complex "
-		$(cat filters.txt)
-		$(for ((j=0;j<i;j++)); do
-			printf '[v%d]' "$j";
-		done)
-		concat=n=$i:v=1:a=0[out]
-	" \
-	-map '[out]' \
-	-c:v libx264 -pix_fmt yuv420p slideshow.mp4
+ffmpeg -y -f concat -safe 0 -i list.txt \
+-vf "subtitles=names.srt" \
+-c:v libx264 -pix_fmt yuv420p slideshow.mp4
 
