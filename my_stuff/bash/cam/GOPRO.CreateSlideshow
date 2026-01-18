@@ -1,0 +1,22 @@
+#!/bin/bash
+
+trap "rm filters.txt" EXIT
+
+i=0
+for f in $(find . -maxdepth 1 -type f -iname '*.jpg' | sort); do
+  echo "[$i:v]drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text='${f##*/}':x=20:y=20:fontsize=124:fontcolor=white:box=1:boxcolor=black@0.5[v$i];"
+  i=$((i+1))
+done > filters.txt
+
+
+ffmpeg -y $(find . -maxdepth 1 -type f -iname '*.jpg' | sort | sed 's/^/ -loop 1 -t 3 -i /') \
+	-filter_complex "
+		$(cat filters.txt)
+		$(for ((j=0;j<i;j++)); do
+			printf '[v%d]' "$j";
+		done)
+		concat=n=$i:v=1:a=0[out]
+	" \
+	-map '[out]' \
+	-c:v libx264 -pix_fmt yuv420p slideshow.mp4
+

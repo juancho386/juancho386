@@ -1,0 +1,11 @@
+#!/bin/bash
+mkdir borrar
+for a in *.mp4 *.MP4; do
+	if [ -f $a ]; then
+		mpv $a
+		echo -en "\033[01;32m¿Borrarlo? (y/N)\033[00m "; read borrar
+		if [ x${borrar^^} == xY ]; then
+			mv "$a" borrar/
+		fi
+	fi
+done

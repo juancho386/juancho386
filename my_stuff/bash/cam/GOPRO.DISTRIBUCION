@@ -1,0 +1,10 @@
+#/bin/bash
+
+mkdir mp4 lrv jpg gpr thm
+find . -iname "*.MP4" -exec mv {} mp4 \; 2>/dev/null
+find . -iname "*.LRV" -exec mv {} lrv \; 2>/dev/null
+find . -iname "*.JPG" -exec mv {} jpg \; 2>/dev/null
+find . -iname "*.GPR" -exec mv {} gpr \; 2>/dev/null
+find . -iname "*.THM" -exec mv {} thm \; 2>/dev/null
+rmdir * 2>/dev/null
+
