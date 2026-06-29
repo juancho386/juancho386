@@ -117,7 +117,7 @@ nnoremap <leader><tab> :%s/    /\t/g<CR>
 set tabstop=4
 set shiftwidth=4
 set softtabstop=0
-set autowrite autoindent number relativenumber paste splitbelow splitright
+set autowrite autoindent number relativenumber paste splitbelow splitright hlsearch incsearch
 set listchars=tab:»·,space:·,eol:$,trail:≈,extends:⌐,precedes:¬
 
 nnoremap _b oBest regards,<Esc>oJuan Nestares<Esc>
